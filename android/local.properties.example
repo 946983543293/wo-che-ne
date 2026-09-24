@@ -1,0 +1,18 @@
+# 「我车呢」本地私密配置模板（本文件入库，真实的 local.properties 绝不入库）
+#
+# 使用方法：
+#   1. 复制本文件为 android/local.properties（flutter create/build 会自动生成该文件，追加以下两行即可）
+#   2. 到高德开放平台申请 Android Key（申请步骤见 README.md「高德 Key 自助申请」）
+#   3. 把 Key 填到等号后面，保存后重新构建
+#
+# 两个 Key 分别绑定不同的签名指纹（高德按「包名 + SHA1」鉴权，同一应用可加多个 Key）：
+#   AMAP_KEY          → debug 包用（绑定 debug keystore 的 SHA1）
+#   AMAP_KEY_RELEASE  → release 包用（绑定你的 release keystore 的 SHA1）
+#
+# 注意：
+#   - 两个 Key 都未配置时：Debug 构建可通过（仅警告），Release 构建会直接报错中止。
+#   - 只配了 AMAP_KEY 时：Release 包会嵌这个 Key，但它绑定的是 debug 签名，
+#     装到真机后地图将无法鉴权（控制台会看到 SHA1 不匹配），务必为 release 单独申请 Key。
+
+AMAP_KEY=请在此填入你的高德Key（debug 用）
+AMAP_KEY_RELEASE=请在此填入你的高德Key（release 用）

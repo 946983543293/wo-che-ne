@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">我车呢</string>
+    <!-- P1-2 桌面快捷方式文案（静态声明于 res/xml/shortcuts.xml） -->
+    <string name="shortcut_record_short">记车位</string>
+    <string name="shortcut_record_long">一键记车位</string>
+</resources>

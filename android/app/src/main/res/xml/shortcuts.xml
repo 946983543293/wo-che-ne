@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  P1-2 Android 桌面快捷方式（App Shortcuts）静态声明。
+  长按桌面图标即出现「一键记车位」入口；点击后以本 action 启动 MainActivity。
+  与 lib/services/shortcut_service.dart 的自建通道 com.wochene.app/shortcut 联动：
+  冷启动经 getLaunchAction 拉取，热启动经 onNewIntent 推送 launchAction。
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="record_parking"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_record_short"
+        android:shortcutLongLabel="@string/shortcut_record_long">
+        <intent
+            android:action="com.wochene.app.action.RECORD_PARKING"
+            android:targetPackage="com.wochene.app"
+            android:targetClass="com.wochene.wo_che_ne.MainActivity" />
+    </shortcut>
+</shortcuts>

@@ -1,0 +1,19 @@
+# 「我车呢」静态检查配置
+# 规则集：flutter_lints（官方推荐），个别规则按项目约定微调。
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    # vendored 高德插件（官方已停更，为适配新 Flutter/AGP 做了最小改造）：
+    # 上游代码风格与新版 lint 不符，排除出静态检查，避免噪声淹没本项目代码。
+    # 其正确性由 flutter build 的 Dart 编译阶段把关。
+    - third_party/**
+
+linter:
+  rules:
+    # 文档注释强制到 public API 级别（开源项目保持可读性）
+    public_member_api_docs: true

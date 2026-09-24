@@ -1,0 +1,18 @@
+/.gradle
+/captures/
+# 构建产物：根 .gitignore 的 `/build/` 只匹配仓库根目录，
+# android 模块自己的 build/ 必须单独写，否则会把 problems-report.html 这类产物提交上去。
+/build/
+# 注：Gradle Wrapper（gradlew / gradlew.bat / gradle-wrapper.jar）**不再忽略**。
+# 原 Flutter 模板会忽略它们，但那样新克隆的仓库拿不到 wrapper，必须先装本地 gradle 才能构建。
+# 开源仓库应当自带 wrapper，保证 `./gradlew` 开箱可用。
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/to/reference-keystore
+key.properties
+keystore.properties
+**/*.keystore
+**/*.jks

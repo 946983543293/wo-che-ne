@@ -1,0 +1,88 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ===== 权限声明（PRD §7：按需申请、给理由；不申请相册/通知等无关权限） ===== -->
+    <!-- 定位：记录车位坐标、找车时显示「我的位置」（点「记下车位」时才运行时申请） -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 相机：拍摄停车位照片，仅存应用私有目录（进拍照页时才运行时申请） -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 高德地图 SDK 必需的网络与网络状态权限（normal 级，无需运行时申请） -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 注意：刻意不声明 READ_MEDIA_IMAGES —— 照片只进应用私有目录，不碰系统相册 -->
+    <!-- 振动：记录完成的轻震反馈（vibration 插件；PRD Q2 已决默认开可关） -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- ===== 显式移除第三方插件带入的无关权限（合规，PRD §6.2 / PRIVACY.md） ===== -->
+    <!-- camera_android_camerax 会合并进以下三条，但本应用均不需要：
+         READ_EXTERNAL_STORAGE：Android 12 及以下即相册读权限；照片只写应用私有目录。
+         WRITE_EXTERNAL_STORAGE(maxSdk=28)：写入均走应用私有目录，应用专属外部目录自
+         API 19 起即豁免该权限，故 API 24 至 28 也不需要。
+         RECORD_AUDIO：本应用只拍照不录音（CameraController enableAudio=false）。 -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO"
+        tools:node="remove" />
+
+    <application
+        android:label="@string/app_name"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+
+        <!-- 高德地图 Key（构建期由 build.gradle.kts 从 local.properties 注入；Key 绝不入库） -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="${AMAP_KEY}" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <!-- P1-2 桌面快捷方式入口（「一键记车位」），定义见 res/xml/shortcuts.xml -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>

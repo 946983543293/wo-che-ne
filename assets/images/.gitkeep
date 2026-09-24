@@ -1,0 +1,2 @@
+# 占位文件：保证 assets/images/ 目录入库（pubspec.yaml 已声明该资源目录）。
+# T05 用 Seedream 生成插图后放入本目录，提示词记录在 assets/prompts.md。

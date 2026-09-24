@@ -1,0 +1,70 @@
+name: wo_che_ne
+description: "我车呢 —— 秒记自行车位，秒找车。纯本地、无账号、无后端的极简找车 APP。"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # 状态管理（架构 §1.3：Riverpod）
+  flutter_riverpod: ^2.5.1
+  # 本地存储（架构 §1.4：shared_preferences + JSON 文件）
+  shared_preferences: ^2.3.0
+  path_provider: ^2.1.4
+  # 拍照（P0-3，ResolutionPreset.medium）
+  camera: ^0.11.0
+  # 高德地图 / 高德融合定位（P0-6 / P0-2）
+  # amap_flutter_base 的 LatLng / LatLngBounds 是地图插件公开 API 的类型，
+  # 地图页需直接引用；显式声明为依赖（源码经 dependency_overrides 指向 third_party）。
+  amap_flutter_base: ^3.0.0
+  amap_flutter_map: ^3.0.0
+  amap_flutter_location: ^3.0.0
+  # 运行时权限（按需申请、给理由）
+  permission_handler: ^11.3.1
+  # 指南针朝向（P1-1 方向箭头）
+  flutter_compass_v2: ^1.0.3
+  # 桌面快捷方式「一键记车位」（P1-2）
+  # 注：最终未使用 quick_actions —— 其 Dart 侧（旧方法通道 plugins.flutter.io/quick_actions）
+  # 与 Android 侧（pigeon 通道 dev.flutter.pigeon.quick_actions_android.*）通道名不一致，
+  # 无法通信；改为自建 MethodChannel com.wochene.app/shortcut（见 MainActivity.kt 与
+  # lib/services/shortcut_service.dart）。此依赖保留仅为避免锁定文件抖动，无权限影响。
+  quick_actions: ^1.1.0
+  # 记录完成震动反馈（Q2 已决：默认开）
+  # 注：架构 §6 表为 ^1.9.0，但 1.9.0（2020）使用已被 Flutter 引擎移除的 v1 嵌入 API
+  # （PluginRegistry.Registrar），无法编译；按架构 §6 备注「可升 3.x」升级为 ^3.0.0。
+  vibration: ^3.0.0
+  # 时间格式化（「今天 12:24」）/ 记录 ID / 关于页版本号
+  intl: ^0.19.0
+  uuid: ^4.4.0
+  package_info_plus: ^8.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  # 静态检查（注：架构 §6 表为 ^4.0.0，Flutter 3.47 模板自带 ^6.0.0，取新）
+  flutter_lints: ^6.0.0
+  # 单测 mock
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    # Seedream 生成插图（空状态/关于页），T05 填充
+    - assets/images/
+
+# 高德官方插件已停更（3.0.0，2022）：不支持 Dart 3、Android 构建脚本用了已被移除的 jcenter()/遗留 DSL。
+# 这里 vendoring 到 third_party/ 并做最小现代化改造（详见 third_party/README.md）。
+dependency_overrides:
+  amap_flutter_base:
+    path: third_party/amap_flutter_base
+  amap_flutter_map:
+    path: third_party/amap_flutter_map
+  amap_flutter_location:
+    path: third_party/amap_flutter_location

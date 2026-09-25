@@ -40,7 +40,7 @@
 | `values/ic_launcher_background.xml` | 自适应图标背景色 `#FAFAF7` |
 | `mipmap-anydpi-v26/ic_launcher.xml`、`ic_launcher_round.xml` | 自适应图标描述（Android 8.0+） |
 
-> 加工脚本：`F:\WorkBuddy_data\我车呢\.workbuddy\make_icons.py`（工作区工具，不入开源仓库）。
+> 加工脚本：`F:\WorkBuddy_data\wo-che-ne\.workbuddy\make_icons.py`（工作区工具，不入开源仓库）。
 > 抠图判据：该图背景为暖调米白（R 通道主导），主图形为薄荷青绿（G 通道主导），
 > 故用 `g > r + 15 and g > b + 15` 定位与抠图，比「接近固定底色」稳健得多。
 

@@ -1,7 +1,7 @@
 name: wo_che_ne
 description: "我车呢 —— 秒记自行车位，秒找车。纯本地、无账号、无后端的极简找车 APP。"
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.13.4

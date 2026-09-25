@@ -19,7 +19,7 @@
 - 🔒 **数据全在本机**——无账号、无后端、无云同步，照片只存应用私有目录
 - 🫥 **不申请相册/录音权限**——除了高德 SDK 提供地图/定位所必需的网络请求，应用自身没有任何网络请求
 
-**[⬇️ 前往 Releases 下载最新版 APK](https://github.com/946983543293/wo-che-ne/releases/latest)**
+**[⬇️ 前往 Releases 下载最新版 APK](https://github.com/LingFengyuTHU/wo-che-ne/releases/latest)**
 
 > ⚠️ 安装提示：手机上装过 debug 包的话，请**先卸载**再装 release 包（两者签名不同，直接覆盖会失败）。
 >
@@ -56,7 +56,7 @@
 ### 拉取代码
 
 ```bash
-git clone https://github.com/946983543293/wo-che-ne
+git clone https://github.com/LingFengyuTHU/wo-che-ne
 cd wo-che-ne
 flutter pub get
 ```
@@ -174,5 +174,5 @@ flutter test       # → 180 个用例全通过
 
 - **主项目**：MIT，见 [LICENSE](LICENSE)（Copyright (c) 2026 我车呢贡献者）；`third_party/` 为 BSD 3-Clause。
 - **高德地图 SDK**：其使用受《高德地图开放平台服务条款》约束，需自行申请 Key。
-- **开发者署名**：**聆风语**（<https://github.com/946983543293>）——应用内「设置 → 关于」展示。
+- **开发者署名**：**聆风语**（<https://github.com/LingFengyuTHU>）——应用内「设置 → 关于」展示。
 - 全部设计素材由 AI 生图自产，提示词记录于 [assets/prompts.md](assets/prompts.md)。

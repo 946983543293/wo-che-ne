@@ -99,9 +99,11 @@
 | 级别 | P3（建议改进，不影响安全/功能/构建） |
 | 文件:行号 | `README.md:125` |
 | 现状 | `## 项目结构（架构文档见团队 docs/ARCHITECTURE.md）` |
-| 问题 | 该括号引用的 `docs/ARCHITECTURE.md` **在本开源仓库内不存在**（仓库 `docs/` 下仅有 `QA-T03-report.md`、`QA-T04-report.md`、`screenshots/`）。架构文档实际位于团队工作区（`F:\WorkBuddy_data\我车呢\docs\ARCHITECTURE.md`），并未随开源仓库分发。措辞虽冠以「团队」，但外部读者按相对路径 `docs/ARCHITECTURE.md` 查找会落空 |
+| 问题 | 该括号引用的 `docs/ARCHITECTURE.md` **在本开源仓库内不存在**（仓库 `docs/` 下仅有 `QA-T03-report.md`、`QA-T04-report.md`、`screenshots/`）。架构文档实际位于团队工作区（`F:\WorkBuddy_data\wo-che-ne\docs\ARCHITECTURE.md`），并未随开源仓库分发。措辞虽冠以「团队」，但外部读者按相对路径 `docs/ARCHITECTURE.md` 查找会落空 |
 | 建议修法 | 二选一：① 将架构文档一并纳入仓库 `docs/`；② 把该括号改为「（架构文档为团队内部文档，未随本仓库分发）」，避免读者按 `docs/ARCHITECTURE.md` 查找 |
 | 复现 | `Test-Path W:\wo_che_ne\docs\ARCHITECTURE.md` → False |
+
+> **2026-09-25 补注**：该结论已过期——`docs/ARCHITECTURE.md` 此后已被纳入开源仓库 `docs/`，README 亦已链接至该文件。原核查结论保留供追溯。
 
 > **说明**：此为**文档措辞**层面的 P3，不构成安全、功能或构建缺陷，故**不路由 Engineer**；建议后续文档轮顺手修正即可。
 

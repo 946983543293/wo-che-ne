@@ -90,7 +90,7 @@
 
 ## 2. 文件列表及相对路径
 
-工程根目录：`wo_che_ne/`（实际绝对路径 `F:\WorkBuddy_data\我车呢\wo_che_ne\`；`flutter create --org com.wochene --project-name wo_che_ne` 生成后按下表组织）
+工程根目录：`wo_che_ne/`（实际绝对路径 `F:\WorkBuddy_data\wo-che-ne\wo_che_ne\`；`flutter create --org com.wochene --project-name wo_che_ne` 生成后按下表组织）
 
 > 标 **✅T01** / **✅T02** / **✅T03** 者为对应任务已完成产出；未标注者为待建（行尾注明所属任务）。
 
@@ -455,7 +455,7 @@ sequenceDiagram
 >
 > **T02 完工状态（实测核验）**：`lib/data/**`、`lib/services/**`、`lib/core/utils/**`、`test/**` 与 `tool/flutter.ps1` **全部落地**，36 个单测全绿、`flutter analyze` 无 issue。实际较原计划额外产出 `test/time_utils_test.dart`、`test/amap_sdk_gate_test.dart`、`test/widget_test.dart`（模板冒烟基线）与 `tool/flutter.ps1`；`amap_sdk_gate.dart` 服务本体含 `agreeAndInit()` / `initIfAgreed()` / `ensureReady()`。
 >
-> **T03 范围补充（v1.2）**：T02 **只交付 `AmapSdkGate` 服务本体，未改 `main.dart` / `app.dart`**（避免破坏 T01 冒烟测试，且接门需要状态层 Provider 才有干净注入点）。因此「**启动接门**」明确归入 T03：`main.dart` 启动时读隐私同意状态并调用 `initIfAgreed()`，`app.dart` 把 `privacy_consent_dialog` 接为首启前置门。**T03 施工注意**：① 高德相关 Dart 代码按 pub 包名 `import 'package:amap_flutter_map/...'`，vendoring 对上层无感；② 跑 analyze / 单测 / 构建统一用 `.\tool\flutter.ps1`（自动设 NO_PROXY，见 §9-8）；③ 因工程路径含中文，analyze / LSP 前先 `subst W: "F:\WorkBuddy_data\我车呢"` 套壳（§9-3）。
+> **T03 范围补充（v1.2）**：T02 **只交付 `AmapSdkGate` 服务本体，未改 `main.dart` / `app.dart`**（避免破坏 T01 冒烟测试，且接门需要状态层 Provider 才有干净注入点）。因此「**启动接门**」明确归入 T03：`main.dart` 启动时读隐私同意状态并调用 `initIfAgreed()`，`app.dart` 把 `privacy_consent_dialog` 接为首启前置门。**T03 施工注意**：① 高德相关 Dart 代码按 pub 包名 `import 'package:amap_flutter_map/...'`，vendoring 对上层无感；② 跑 analyze / 单测 / 构建统一用 `.\tool\flutter.ps1`（自动设 NO_PROXY，见 §9-8）；③ 因原工程路径含中文（2026-09-25 工作区已改名为 wo-che-ne，现为纯 ASCII），analyze / LSP 前先 `subst W: "F:\WorkBuddy_data\wo-che-ne"` 套壳（§9-3）。
 >
 > **T03 完工状态（v1.3）**：代码完成 → **已过 QA Round 1**（QA 抓到 1 个 P1「引导遮罩坐标错位」+ 1 个 P2，工程师已修，相关用例转绿）→ **待 QA Round 2 复验**。T03 实际额外产出 QA 用例与测试脚手架：`test/t03_parking_controller_test.dart`（照片上限职责边界契约）、`t03_camera_flow_test.dart`、`t03_privacy_gate_test.dart`、`t03_home_dual_state_test.dart`、`t03_eviction_cascade_test.dart`、`t03_coach_mark_overlay_test.dart`、`test/support/{fakes,rig}.dart`；并在 `AndroidManifest.xml` 落地权限最小化（§9-9）。
 
@@ -578,14 +578,14 @@ dependencies {
 
 对应地，`§1.5` 插件表与 `§6` 依赖表均已加注。
 
-### 9-3 中文路径坑（工程路径含「我车呢」）
+### 9-3 中文路径坑（工程路径含「我车呢」；2026-09-25 工作区已改名为 wo-che-ne，路径现为纯 ASCII，此坑自然消失）
 
 | 现象 | 根因 | 规避/根治 |
 |---|---|---|
-| `flutter analyze` 与 dart LSP 崩溃 | 工具链对非 ASCII 路径处理不稳 | **规避**：`subst W: "F:\WorkBuddy_data\我车呢"`，在 `W:` 盘路径下跑 analyze / 开编辑器 |
+| `flutter analyze` 与 dart LSP 崩溃 | 工具链对非 ASCII 路径处理不稳 | **规避**（中文路径时期的规避手段，该坑已因 2026-09-25 改名消失；保留 `subst` 写法作备用——他人若把仓库 clone 到含中文的路径仍可套用）：`subst W: "F:\WorkBuddy_data\wo-che-ne"`，在 `W:` 盘路径下跑 analyze / 开编辑器 |
 | AGP 报 gson `Invalid escape sequence` | AGP 用平台默认 **GBK** 解码 CMake/JSON 产物，多字节边界错位产生孤立反斜杠 | **根治**：`android/gradle.properties` 的 `org.gradle.jvmargs` 加 `-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8`；另设 `android.overridePathCheck=true` 放行非 ASCII 路径 |
 
-> 结论：**日常 analyze/编辑走 `W:` 盘套壳路径；构建走真实路径 + UTF-8 强制**（`gradle.properties` 已固化）。
+> 结论（**中文路径时期**的处方）：**日常 analyze/编辑走 `W:` 盘套壳路径；构建走真实路径 + UTF-8 强制**（`gradle.properties` 已固化）。2026-09-25 工作区改名后工程路径已是纯 ASCII，`W:` 套壳**不再必要**；UTF-8 强制与 `android.overridePathCheck=true` 仍保留（供他人 clone 到中文路径时生效）。
 
 ### 9-4 统一 compileSdk = 36
 
@@ -597,10 +597,10 @@ dependencies {
 
 ### 9-5 Gradle 家目录已迁入工作区
 
-沙箱曾拦截 `~/.gradle` 写入导致构建停滞，已将 Gradle 家目录迁到 **`F:\WorkBuddy_data\我车呢\.gradle-home`**。
+沙箱曾拦截 `~/.gradle` 写入导致构建停滞，已将 Gradle 家目录迁到 **`F:\WorkBuddy_data\wo-che-ne\.gradle-home`**。
 
 - ⚠️ 该目录含约 **2GB 构建缓存，勿删**。
-- 后续所有构建命令统一带环境变量：`GRADLE_USER_HOME=F:\WorkBuddy_data\我车呢\.gradle-home`。
+- 后续所有构建命令统一带环境变量：`GRADLE_USER_HOME=F:\WorkBuddy_data\wo-che-ne\.gradle-home`。
 - （该目录位于仓库根 `wo_che_ne/` 之外，不影响开源仓库内容。）
 
 ### 9-6 补充：`hashValues` 已从 dart:ui 移除

@@ -9,7 +9,7 @@
 | 报告版本 | v1.0 |
 
 > **说明**：本报告由 QA 独立编写，所有结论均基于本人亲自执行的命令与自编测试，不引用工程师的自测数字。
-> **环境备注**：团队说明中的文档路径 `W:\wo_che_ne\docs` 实际不存在；文档位于 `W:\docs`（= `F:\WorkBuddy_data\我车呢\docs`）。本报告因此落盘在 `W:\docs\QA-T03-report.md`。
+> **环境备注**：团队说明中的文档路径 `W:\wo_che_ne\docs` 实际不存在；文档位于 `W:\docs`（= `F:\WorkBuddy_data\wo-che-ne\docs`）。本报告因此落盘在 `W:\docs\QA-T03-report.md`。
 
 ---
 

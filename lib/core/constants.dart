@@ -89,7 +89,7 @@ abstract final class AppConstants {
   /// 开源仓库地址（MIT 协议公开仓库）。
   ///
   /// 应用内「设置 → 关于 → 开源仓库」展示此地址，并支持复制到剪贴板 / 外部打开。
-  static const String githubRepoUrl = 'https://github.com/946983543293/wo-che-ne';
+  static const String githubRepoUrl = 'https://github.com/LingFengyuTHU/wo-che-ne';
 
   /// 开源协议名称。
   static const String licenseName = 'MIT';
